@@ -1,0 +1,12 @@
+.ticket-list {
+  grid-area: tickets;
+  list-style-type: none;
+
+  &__notification {
+    margin: 50px;
+    background-color: beige;
+    border: 1px solid sandybrown;
+    border-radius: 2px;
+    padding: 10px;
+  }
+}

@@ -1,0 +1,61 @@
+.ticket {
+  width: 100%;
+  height: 180px;
+  cursor: pointer;
+  display: grid;
+  border-radius: 5px;
+  background-color: #ffffff;
+  grid-template-areas:
+    "cost cost logo"
+    "description description description";
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  margin-bottom: 1.5rem;
+
+  h2 {
+    align-self: center;
+    color: #2196f3;
+    font-size: 24px;
+    justify-self: start;
+    margin-left: 1.75rem;
+    font-weight: normal;
+  }
+
+  img {
+    align-self: center;
+    grid-area: logo;
+    justify-self: center;
+  }
+
+  &__desc {
+    list-style-type: none;
+    align-items: flex-start;
+    display: grid;
+    grid-area: description;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    justify-items: center;
+    padding-left: 0;
+
+    & > li > span:first-child {
+      font-size: 13px;
+      line-height: 18px;
+      color: #a0b0b9;
+      text-transform: uppercase;
+    }
+
+    & > li > span:last-child {
+      font-size: 14px;
+      line-height: 21px;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .ticket {
+    width: 500px;
+
+    & > h2 {
+      margin-left: 2.5rem;
+    }
+  }
+}
