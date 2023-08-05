@@ -4,14 +4,14 @@ const initialState = {
 
 const sortReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "SORT_TICKETS": {
-      return {
-        ...state,
-        activeTab: action.payload,
-      };
-    }
-    default:
-      return state;
+  case "SORT_TICKETS": {
+    return {
+      ...state,
+      activeTab: action.payload,
+    };
+  }
+  default:
+    return state;
   }
 };
 
