@@ -11,7 +11,7 @@ function TicketList() {
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.tickets.loading);
   const currentSearchId = useSelector((state) => state.searchId);
-  const allTickets = useSelector((state) => state.tickets.tickets[0]);
+  const allTickets = useSelector((state) => state.tickets.tickets);
   const ticketsCount = useSelector((state) => state.tickets.ticketCount);
   const filters = useSelector((state) => state.filter.labels);
   const activeFilterIds = filters
@@ -52,9 +52,7 @@ function TicketList() {
   useEffect(() => {
     if (currentSearchId) {
       dispatch(load(true));
-      dispatch(fetchTickets(currentSearchId)).then(() => {
-        dispatch(load(false));
-      });
+      dispatch(fetchTickets(currentSearchId));
     } else {
       dispatch(searchId());
     }
@@ -64,10 +62,9 @@ function TicketList() {
     dispatch(searchId());
   }, [dispatch]);
 
-  return loading ? (
-    <Spin className="spin" size="large" />
-  ) : (
+  return (
     <ul className="ticket-list">
+      {loading && <Spin className="spin" size="large" />}
       {filteredTickets && filteredTickets.length > 0 ? (
         filteredTickets.slice(0, ticketsCount).map((el, index) => (
           <li key={index}>

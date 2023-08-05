@@ -14,9 +14,9 @@ const store = createStore(
   composeWithDevTools(applyMiddleware(thunk)),
 );
 
-ReactDOM.render(
+const root = document.getElementById("root");
+ReactDOM.createRoot(root).render(
   <Provider store={store}>
     <App />
   </Provider>,
-  document.getElementById("root"),
 );

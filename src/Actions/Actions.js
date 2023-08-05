@@ -47,17 +47,33 @@ export const searchId = () => async (dispatch) => {
 
 export const fetchTickets =
   ({ searchId }) =>
-    async (dispatch) => {
-      try {
-        if (searchId === "") return null;
-        const response = await fetch(`${baseUrl}/tickets?searchId=${searchId}`);
-        const data = await response.json();
-        dispatch({
-          type: "FETCH_TICKETS",
-          jsonData: data,
-        });
-        return data.tickets;
-      } catch (error) {
-        throw new Error("Произошла ошибка при загрузке билетов", error.message);
+  async (dispatch) => {
+    if (searchId === "") return null;
+
+    let response;
+    try {
+      response = await fetch(`${baseUrl}/tickets?searchId=${searchId}`);
+      const data = await response.json();
+      dispatch({
+        type: "FETCH_TICKETS",
+        jsonData: { ...data, error: false },
+      });
+
+      if (data.stop) {
+        dispatch(load(false));
+      } else {
+        await dispatch(fetchTickets({ searchId }));
       }
-    };
+    } catch (error) {
+      if (response.status === 404) {
+        dispatch(searchId());
+      }
+      if (response.status === 500) {
+        dispatch(fetchTickets({ searchId }));
+      }
+      dispatch({
+        type: "FETCH_TICKETS",
+        jsonData: { tickets: [], stop: false, error: true },
+      });
+    }
+  };
