@@ -1,1 +1,1 @@
-https://aviasales-seven-mu.vercel.app/
+https://aviasales-shaltus.vercel.app 
